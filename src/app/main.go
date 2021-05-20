@@ -11,6 +11,7 @@ func main() {
 	zlog.Info().Msg("Server Start")
 
 	engine := gin.Default()
+	engine.LoadHTMLGlob("src/app/templates/*.gohtml")
 
 	engine.GET("/", middleware.TestMiddle, controllers.Index)
 	if err := engine.Run(":8080"); err != nil {
