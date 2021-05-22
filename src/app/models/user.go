@@ -1,6 +1,11 @@
 package models
 
-import "time"
+import (
+	"database/sql"
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
+	"time"
+)
 
 type User struct {
 	Id        int
@@ -9,4 +14,35 @@ type User struct {
 	Email     string
 	Password  string
 	CreatedAt time.Time
+}
+
+func CreateUser(name string, email string, password string) (*User, error) {
+	var (
+		stmt *sql.Stmt
+		user *User
+		err  error
+	)
+	if stmt, err = db.Prepare("INSERT INTO users (uuid, name, email, password, created_at) VALUES ($1,$2,$3,$4,$5) RETURNING id, uuid,name,email,created_at"); err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	id, err := uuid.NewRandom()
+	if err != nil {
+		return nil, err
+	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		return nil, err
+	}
+
+	user = &User{}
+	err = stmt.QueryRow(id.String(), name, email, string(hash), time.Now()).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }

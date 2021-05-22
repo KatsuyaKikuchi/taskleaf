@@ -13,7 +13,10 @@ func main() {
 	engine := gin.Default()
 	engine.LoadHTMLGlob("src/app/templates/*.gohtml")
 
-	engine.GET("/", middleware.TestMiddle, controllers.Index)
+	engine.GET("/", middleware.CheckSession, controllers.Index)
+	engine.GET("/signup", middleware.CheckSession, controllers.Signup)
+
+	engine.POST("/create_account", controllers.CreateAccount)
 	if err := engine.Run(":8080"); err != nil {
 		zlog.Fatal().Msg(err.Error())
 	}

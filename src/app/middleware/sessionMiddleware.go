@@ -5,8 +5,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func TestMiddle(ctx *gin.Context) {
-	log.Debug().Msg("Prev")
+func CheckSession(ctx *gin.Context) {
+	log.Debug().Msg("check session")
 	ctx.Next()
-	log.Debug().Msg("After")
 }
