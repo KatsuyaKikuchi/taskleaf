@@ -41,3 +41,13 @@ func FindSession(sessionUuid string) (*Session, error) {
 	}
 	return session, nil
 }
+
+func (session *Session) DeleteSession() error {
+	stmt, err := db.Prepare("DELETE FROM sessions WHERE uuid=$1")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(session.Uuid)
+	return err
+}

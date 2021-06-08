@@ -12,12 +12,7 @@ func CheckSession(ctx *gin.Context) {
 		if err != nil {
 			log.Warn().Msg(err.Error())
 		} else {
-			if user, err := session.FindUser(); err == nil {
-				ctx.Set("LoginUser", user)
-				log.Debug().Msgf("user = %v", user)
-			} else {
-				log.Warn().Msg(err.Error())
-			}
+			ctx.Set("Session", session)
 		}
 	} else {
 		log.Warn().Msg(err.Error())

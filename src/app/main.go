@@ -15,6 +15,7 @@ func main() {
 
 	engine.GET("/", middleware.CheckSession, controllers.Index)
 	engine.GET("/signup", middleware.CheckSession, controllers.Signup)
+	engine.GET("/logout", middleware.CheckSession, controllers.Logout)
 
 	engine.POST("/create_account", controllers.CreateAccount, middleware.SetSessionCookie)
 	if err := engine.Run(":8080"); err != nil {

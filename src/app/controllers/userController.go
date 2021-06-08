@@ -35,3 +35,14 @@ func CreateAccount(ctx *gin.Context) {
 
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
+
+func Logout(ctx *gin.Context) {
+	if value, exist := ctx.Get("Session"); exist {
+		if session, ok := value.(*models.Session); ok {
+			if err := session.DeleteSession(); err != nil {
+				log.Err(err)
+			}
+		}
+	}
+	ctx.Redirect(http.StatusSeeOther, "/")
+}
