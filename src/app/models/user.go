@@ -16,6 +16,18 @@ type User struct {
 	CreatedAt time.Time
 }
 
+func (session *Session) FindUser() (*User, error) {
+	if session == nil {
+		return nil, nil
+	}
+	user := &User{}
+	if err := db.QueryRow("SELECT id, uuid, name, email FROM users WHERE id=$1", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email); err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 func CreateUser(name string, email string, password string) (*User, error) {
 	var (
 		stmt *sql.Stmt

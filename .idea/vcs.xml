@@ -8,7 +8,9 @@
     <mapping directory="$PROJECT_DIR$/src/github.com/go-playground/universal-translator" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/go-playground/validator" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/golang/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/google/uuid" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/leodido/go-urn" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/lib/pq" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/mattn/go-isatty" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/rs/zerolog" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/ugorji/go" vcs="Git" />

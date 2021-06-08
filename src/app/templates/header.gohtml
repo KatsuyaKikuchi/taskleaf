@@ -1,4 +1,10 @@
 {{define "header"}}
-    <a href="/signup">Signup</a>
+    {{if .user}}
+        <p>hello, {{.user.Name}}!</p>
+        <a href="/logout">Logout</a>
+    {{else}}
+        <a href="/signup">Signup</a>
+        <a href="/login">Login</a>
+    {{end}}
     <p>header</p>
 {{end}}

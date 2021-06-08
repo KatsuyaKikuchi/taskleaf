@@ -31,6 +31,7 @@ func CreateAccount(ctx *gin.Context) {
 		log.Err(err)
 	}
 	log.Debug().Msgf("%v", session)
+	ctx.Set("SessionUuid", session.Uuid)
 
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
