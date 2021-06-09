@@ -28,6 +28,20 @@ func (session *Session) FindUser() (*User, error) {
 	return user, nil
 }
 
+func FindUser(email string, password string) (*User, error) {
+	user := &User{}
+	if err := db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE email=$1", email).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt); err != nil {
+		return nil, err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
 func CreateUser(name string, email string, password string) (*User, error) {
 	var (
 		stmt *sql.Stmt

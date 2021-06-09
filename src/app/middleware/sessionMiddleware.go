@@ -21,10 +21,15 @@ func CheckSession(ctx *gin.Context) {
 }
 
 func SetSessionCookie(ctx *gin.Context) {
-	if value, exist := ctx.Get("SessionUuid"); exist {
-		if uuid, success := value.(string); success {
+	if value, exist := ctx.Get("Session"); exist {
+		session, success := value.(*models.Session)
+		if !success || session == nil {
+			maxAge := -1
+			// delete cookie
+			ctx.SetCookie("session", "", maxAge, "/", "", true, true)
+		} else {
 			maxAge := 60 * 60 * 24 * 7 //!< lifetime is 1week
-			ctx.SetCookie("session", uuid, maxAge, "/", "", true, true)
+			ctx.SetCookie("session", session.Uuid, maxAge, "/", "", true, true)
 		}
 	}
 	ctx.Next()

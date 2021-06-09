@@ -17,6 +17,12 @@ func Signup(ctx *gin.Context) {
 	})
 }
 
+func Login(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "login", gin.H{
+		"title": "Login",
+	})
+}
+
 func CreateAccount(ctx *gin.Context) {
 	name, email, password := ctx.PostForm("name"), ctx.PostForm("email"), ctx.PostForm("password")
 	user, err := models.CreateUser(name, email, password)
@@ -31,8 +37,24 @@ func CreateAccount(ctx *gin.Context) {
 		log.Err(err)
 	}
 	log.Debug().Msgf("%v", session)
-	ctx.Set("SessionUuid", session.Uuid)
+	ctx.Set("Session", session)
 
+	ctx.Redirect(http.StatusSeeOther, "/")
+}
+
+func Authenticate(ctx *gin.Context) {
+	email, password := ctx.PostForm("email"), ctx.PostForm("password")
+	user, err := models.FindUser(email, password)
+	if err != nil {
+		log.Err(err)
+		ctx.Redirect(http.StatusSeeOther, "/login")
+		return
+	}
+	session, err := user.CreateSession()
+	if err != nil {
+		log.Err(err)
+	}
+	ctx.Set("Session", session)
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
 
@@ -44,5 +66,6 @@ func Logout(ctx *gin.Context) {
 			}
 		}
 	}
+	ctx.Set("Session", nil)
 	ctx.Redirect(http.StatusSeeOther, "/")
 }

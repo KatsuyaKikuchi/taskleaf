@@ -15,9 +15,11 @@ func main() {
 
 	engine.GET("/", middleware.CheckSession, controllers.Index)
 	engine.GET("/signup", middleware.CheckSession, controllers.Signup)
-	engine.GET("/logout", middleware.CheckSession, controllers.Logout)
+	engine.GET("/logout", middleware.CheckSession, controllers.Logout, middleware.SetSessionCookie)
+	engine.GET("/login", middleware.CheckSession, controllers.Login)
 
 	engine.POST("/create_account", controllers.CreateAccount, middleware.SetSessionCookie)
+	engine.POST("/authenticate", controllers.Authenticate, middleware.SetSessionCookie)
 	if err := engine.Run(":8080"); err != nil {
 		zlog.Fatal().Msg(err.Error())
 	}
