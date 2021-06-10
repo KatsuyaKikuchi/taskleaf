@@ -1,13 +1,22 @@
 {{define "index"}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>{{.title}}</title>
-</head>
-<body>
-{{template "header" .}}
-{{template "footer" .}}
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{.title}}</title>
+    </head>
+    <body>
+    {{template "header" .}}
+    {{if .user}}
+        {{range .tasks}}
+            <p>{{.Body}}</p>
+        {{end}}
+        <form role="form" method="post" action="/create_task">
+            <input type="text" name="task" placeholder="Task">
+            <button type="submit">CreateTask</button>
+        </form>
+    {{end}}
+    {{template "footer" .}}
+    </body>
+    </html>
 {{end}}

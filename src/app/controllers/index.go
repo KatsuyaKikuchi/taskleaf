@@ -20,10 +20,16 @@ func Index(ctx *gin.Context) {
 			}
 		}
 	}
+	tasks := make([]models.Task, 0)
+	if user != nil {
+		if tasks, err = user.Tasks(); err != nil {
+			log.Err(err)
+		}
+	}
 
-	log.Debug().Msgf("index user = %v", user)
 	ctx.HTML(http.StatusOK, "index", gin.H{
 		"title": "TaskLeaf",
 		"user":  user,
+		"tasks": tasks,
 	})
 }

@@ -20,6 +20,7 @@ func main() {
 
 	engine.POST("/create_account", controllers.CreateAccount, middleware.SetSessionCookie)
 	engine.POST("/authenticate", controllers.Authenticate, middleware.SetSessionCookie)
+	engine.POST("/create_task", middleware.CheckSession, controllers.CreateTask)
 	if err := engine.Run(":8080"); err != nil {
 		zlog.Fatal().Msg(err.Error())
 	}
