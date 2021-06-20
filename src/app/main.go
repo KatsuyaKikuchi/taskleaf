@@ -17,10 +17,11 @@ func main() {
 	engine.GET("/signup", middleware.CheckSession, controllers.Signup)
 	engine.GET("/logout", middleware.CheckSession, controllers.Logout, middleware.SetSessionCookie)
 	engine.GET("/login", middleware.CheckSession, controllers.Login)
+	engine.GET("/update_task/:id", middleware.CheckSession, middleware.CheckUser, controllers.UpdateTask)
 
 	engine.POST("/create_account", controllers.CreateAccount, middleware.SetSessionCookie)
 	engine.POST("/authenticate", controllers.Authenticate, middleware.SetSessionCookie)
-	engine.POST("/create_task", middleware.CheckSession, controllers.CreateTask)
+	engine.POST("/create_task", middleware.CheckSession, middleware.CheckUser, controllers.CreateTask)
 
 	engine.DELETE("/delete_task/:id", middleware.CheckSession, controllers.DeleteTask)
 	if err := engine.Run(":8080"); err != nil {

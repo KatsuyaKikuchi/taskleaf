@@ -30,6 +30,15 @@ func (user *User) Tasks() ([]Task, error) {
 	return tasks, nil
 }
 
+func FindTask(id int) (*Task, error) {
+	task := &Task{UserId: -1}
+	if err := db.QueryRow("SELECT id, uuid, body, user_id, created_at FROM tasks WHERE id=$1", id).
+		Scan(&task.Id, &task.Uuid, &task.Body, &task.UserId, &task.CreatedAt); err != nil {
+		return nil, err
+	}
+	return task, nil
+}
+
 func (user *User) CreateTask(body string) (*Task, error) {
 	task := &Task{}
 	id, err := uuid.NewRandom()

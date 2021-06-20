@@ -1,9 +1,9 @@
 {{define "index"}}
-    {{template "layoutTop" .}}
+    {{template "layout_top" .}}
     {{template "header" .}}
     {{if .user}}
         {{range .tasks}}
-            <p>{{.Body}}</p>
+            <a href="/update_task/{{.Id}}">{{.Body}}</a>
             <p>{{.CreatedAt}}</p>
         {{end}}
         <form role="form" method="post" action="/create_task">
@@ -12,5 +12,5 @@
         </form>
     {{end}}
     {{template "footer" .}}
-    {{template "layoutBottom" .}}
+    {{template "layout_bottom" .}}
 {{end}}

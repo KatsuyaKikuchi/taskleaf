@@ -20,6 +20,19 @@ func CheckSession(ctx *gin.Context) {
 	ctx.Next()
 }
 
+func CheckUser(ctx *gin.Context) {
+	if value, exist := ctx.Get("Session"); exist {
+		if session, success := value.(*models.Session); success {
+			if user, err := session.FindUser(); err != nil {
+				log.Err(err)
+			} else {
+				ctx.Set("User", user)
+			}
+		}
+	}
+	ctx.Next()
+}
+
 func SetSessionCookie(ctx *gin.Context) {
 	if value, exist := ctx.Get("Session"); exist {
 		session, success := value.(*models.Session)

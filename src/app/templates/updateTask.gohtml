@@ -1,0 +1,10 @@
+{{define "update_task"}}
+    {{template "layout_top" .}}
+    {{template "header" .}}
+    <form action="/update_task">
+        <input type="text" name="task" placeholder="{{.task.Body}}">
+        <button type="submit">更新</button>
+    </form>
+    {{template "footer" .}}
+    {{template "layout_bottom" .}}
+{{end}}

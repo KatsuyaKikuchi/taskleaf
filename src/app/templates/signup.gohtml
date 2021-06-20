@@ -1,5 +1,5 @@
 {{define "signup"}}
-    {{template "layoutTop" .}}
+    {{template "layout_top" .}}
     {{template "header" .}}
     <form role="form" action="/create_account" method="post">
         <input type="text" name="name" placeholder="Name">
@@ -8,5 +8,5 @@
         <button type="submit">アカウント作成</button>
     </form>
     {{template "footer" .}}
-    {{template "layoutBottm" .}}
+    {{template "layout_bottom" .}}
 {{end}}

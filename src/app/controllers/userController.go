@@ -66,6 +66,9 @@ func Logout(ctx *gin.Context) {
 			}
 		}
 	}
+	maxAge := -1
+	// delete cookie
+	ctx.SetCookie("session", "", maxAge, "/", "", true, true)
 	ctx.Set("Session", nil)
 	ctx.Redirect(http.StatusSeeOther, "/")
 }

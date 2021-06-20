@@ -1,5 +1,5 @@
 {{define "login"}}
-    {{template "layoutTop" .}}
+    {{template "layout_top" .}}
     {{template "header" .}}
     <form role="form" action="/authenticate" method="post">
         <input type="email" name="email" placeholder="Email">
@@ -7,5 +7,5 @@
         <button type="submit">Login</button>
     </form>
     {{template "footer" .}}
-    {{template "layoutBottm" .}}
+    {{template "layout_bottom" .}}
 {{end}}
