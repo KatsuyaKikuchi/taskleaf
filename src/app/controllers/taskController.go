@@ -31,3 +31,9 @@ func CreateTask(ctx *gin.Context) {
 
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
+
+func DeleteTask(ctx *gin.Context) {
+	id := ctx.Param("id")
+	log.Debug().Msgf(" id = %v", id)
+	ctx.Redirect(http.StatusSeeOther, "/")
+}

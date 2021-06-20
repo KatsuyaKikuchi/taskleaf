@@ -1,18 +1,11 @@
 {{define "login"}}
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>{{.title}}</title>
-  </head>
-  <body>
-  {{template "header" .}}
-  <form role="form" action="/authenticate" method="post">
-    <input type="email" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Login</button>
-  </form>
-  {{template "footer" .}}
-  </body>
-  </html>
+    {{template "layoutTop" .}}
+    {{template "header" .}}
+    <form role="form" action="/authenticate" method="post">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+    {{template "footer" .}}
+    {{template "layoutBottm" .}}
 {{end}}
