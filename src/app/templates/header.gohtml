@@ -1,4 +1,7 @@
 {{define "header"}}
+    {{if .flash}}
+        <p>{{.flash.Message}}</p>
+    {{end}}
     {{if .user}}
         <p>hello, {{.user.Name}}!</p>
         <a href="/logout">Logout</a>

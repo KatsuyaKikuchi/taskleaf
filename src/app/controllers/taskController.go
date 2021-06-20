@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"app/middleware"
 	"app/models"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
@@ -56,6 +57,8 @@ func UpdateTask(ctx *gin.Context) {
 	body := ctx.PostForm("task")
 
 	task.UpdateTask(body)
+	flash := &middleware.Flash{Level: middleware.Notice, Message: "Update Task!"}
+	ctx.Set("NextFlash", flash)
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
 

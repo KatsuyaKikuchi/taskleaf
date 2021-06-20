@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"app/middleware"
 	"app/models"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
@@ -9,8 +10,9 @@ import (
 
 func Index(ctx *gin.Context) {
 	var (
-		user *models.User
-		err  error
+		user  *models.User
+		flash *middleware.Flash
+		err   error
 	)
 	if value, exist := ctx.Get("Session"); exist {
 		if session, ok := value.(*models.Session); ok {
@@ -19,6 +21,9 @@ func Index(ctx *gin.Context) {
 				log.Err(err)
 			}
 		}
+	}
+	if value, exist := ctx.Get("Flash"); exist {
+		flash, _ = value.(*middleware.Flash)
 	}
 	tasks := make([]models.Task, 0)
 	if user != nil {
@@ -31,5 +36,6 @@ func Index(ctx *gin.Context) {
 		"title": "TaskLeaf",
 		"user":  user,
 		"tasks": tasks,
+		"flash": flash,
 	})
 }
