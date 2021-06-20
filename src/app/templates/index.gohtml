@@ -3,8 +3,9 @@
     {{template "header" .}}
     {{if .user}}
         {{range .tasks}}
-            <a href="/update_task/{{.Id}}">{{.Body}}</a>
-            <p>{{.CreatedAt}}</p>
+            <a href="/edit_task/{{.Id}}">{{.Body}}</a>
+            <p>create : {{.CreatedAt}}</p>
+            <p>update : {{.UpdatedAt}}</p>
         {{end}}
         <form role="form" method="post" action="/create_task">
             <input type="text" name="task" placeholder="Task">

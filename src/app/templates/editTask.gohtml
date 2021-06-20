@@ -1,8 +1,8 @@
-{{define "update_task"}}
+{{define "edit_task"}}
     {{template "layout_top" .}}
     {{template "header" .}}
-    <form action="/update_task">
-        <input type="text" name="task" placeholder="{{.task.Body}}">
+    <form action="/update_task/{{.task.Id}}" method="post" role="form">
+        <input type="text" name="task" placeholder="Body" value="{{.task.Body}}">
         <button type="submit">更新</button>
     </form>
     {{template "footer" .}}

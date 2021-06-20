@@ -7,10 +7,6 @@ import (
 	"net/http"
 )
 
-func login(ctx *gin.Context) {
-
-}
-
 func Signup(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "signup", gin.H{
 		"title": "Signup",

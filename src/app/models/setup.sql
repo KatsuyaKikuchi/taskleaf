@@ -18,7 +18,8 @@ CREATE TABLE tasks
     uuid       varchar(64)  not null unique,
     body       varchar(255) not null,
     user_id    integer references users (id),
-    created_at timestamp    not null
+    created_at timestamp    not null,
+    updated_at timestamp    not null
 );
 
 CREATE TABLE sessions
